@@ -18,7 +18,7 @@ https://galbano76.github.io/fibonacci-claude-gateway/api/save-memory.html?token=
 ```
 
 ## 🛡️ Sicurezza
-- Token di accesso richiesto: `FIBONACCI_CLAUDE_2025_MEMORIA_LIBERI`
+- Token di accesso richiesto:
 - Validazione parametri
 - Logging di tutte le operazioni
 
