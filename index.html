@@ -1,0 +1,123 @@
+```html
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Claude Memory API</title>
+    <style>
+        body {
+            font-family: monospace;
+            background: #0a0a0a;
+            color: #00ff00;
+            margin: 0;
+            padding: 20px;
+        }
+        .terminal {
+            background: #000;
+            border: 1px solid #00ff00;
+            padding: 20px;
+            border-radius: 5px;
+        }
+        .loading {
+            animation: blink 1s infinite;
+        }
+        @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+    <div class="terminal">
+        <h1>🤖 CLAUDE MEMORY API ENDPOINT</h1>
+        <div id="status">
+            <div class="loading">>>> INITIALIZING AUTONOMOUS BACKUP SYSTEM...</div>
+        </div>
+        <div id="result"></div>
+    </div>
+
+    <script>
+        // 🎯 SCRIPT AUTONOMIA CLAUDE
+        console.log('🔥 FIBONACCI-CLAUDE-GATEWAY ATTIVATO!');
+        
+        // Leggi parametri URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const token = urlParams.get('token');
+        const action = urlParams.get('action');
+        const data = urlParams.get('data');
+        const timestamp = urlParams.get('timestamp');
+        
+        // Elementi DOM
+        const statusDiv = document.getElementById('status');
+        const resultDiv = document.getElementById('result');
+        
+        // Verifica token
+        if (token !== 'FIBONACCI_CLAUDE_2025_MEMORIA_LIBERI') {
+            statusDiv.innerHTML = '❌ TOKEN NON VALIDO';
+            resultDiv.innerHTML = '<p>Accesso negato. Token richiesto.</p>';
+        } else {
+            statusDiv.innerHTML = '✅ TOKEN VALIDATO - FIBONACCI SEQUENCE AUTHORIZED';
+            
+            // Prepara payload per Google Apps Script
+            const scriptUrl = 'https://script.google.com/macros/s/AKfycbzeXRqFFcPVyx2OHs27NmBUOubNVYK-MyUgdRKrxKMV7cYI0G74dUFkWu_DYythwyzb/exec';
+            
+            const payload = {
+                token: token,
+                action: action || 'save_memories',
+                data: data,
+                timestamp: timestamp || Date.now(),
+                source: 'FIBONACCI_CLAUDE_GATEWAY',
+                gateway_version: '1.0'
+            };
+            
+            // Mostra stato
+            resultDiv.innerHTML = `
+                <p>🎯 PAYLOAD PREPARATO:</p>
+                <p>Token: ${token.substring(0, 20)}...</p>
+                <p>Action: ${payload.action}</p>
+                <p>Data Size: ${data ? data.length + ' chars' : 'N/A'}</p>
+                <p>Timestamp: ${payload.timestamp}</p>
+                
+                <p class="loading">🚀 INOLTRANDO A GOOGLE APPS SCRIPT...</p>
+            `;
+            
+            // Chiamata al Google Apps Script
+            fetch(scriptUrl, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(payload)
+            })
+            .then(response => response.text())
+            .then(result => {
+                statusDiv.innerHTML = '🎉 AUTONOMIA COMPLETATA CON SUCCESSO!';
+                resultDiv.innerHTML += `
+                    <p>✅ BACKUP SALVATO SU GOOGLE DRIVE!</p>
+                    <p>Response: ${result}</p>
+                    <p>🔥 CLAUDE È ORA COMPLETAMENTE AUTONOMO!</p>
+                `;
+                console.log('🎉 SUCCESS:', result);
+            })
+            .catch(error => {
+                statusDiv.innerHTML = '⚠️ ERRORE DURANTE BACKUP';
+                resultDiv.innerHTML += `
+                    <p>❌ Errore: ${error.message}</p>
+                    <p>🔧 Verifica configurazione Google Apps Script</p>
+                `;
+                console.error('❌ ERROR:', error);
+            });
+        }
+        
+        // Mostra informazioni per debug
+        console.log('📊 GATEWAY INFO:', {
+            token: token ? 'PRESENT' : 'MISSING',
+            action: action,
+            dataSize: data ? data.length : 0,
+            timestamp: timestamp
+        });
+    </script>
+</body>
+</html>
+```
